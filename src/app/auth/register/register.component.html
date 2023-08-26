@@ -1,0 +1,245 @@
+<div class="py-5 bg-secondaryx" style="background:url(assets/img/login.jpg); background-size:cover; background-position:right;">
+    <div class="container">
+        <div class="mb-3">
+            <span class="text-uppercase font-weight-bold">Create Account</span>
+        </div>
+        <div class="tab-content">
+            <div class="card" style="background-color: rgba(255,255,255,0.8);">
+                <div class="card-header container" id="progressContainer">
+                    <div class="custom-bar">
+                        <div class="step">
+                            <p>Details</p>
+                            <div class="bullet">
+                                <span>1</span>
+                            </div>
+                            <div class="check">
+                                <i class="fa fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <p>Contact</p>
+                            <div class="bullet">
+                                <span>2</span>
+                            </div>
+                            <div class="check">
+                                <i class="fa fa-check"></i>
+                            </div>
+                        </div>
+                        <!-- <div class="step">
+                            <p>Identity</p>
+                            <div class="bullet">
+                                <span>3</span>
+                            </div>
+                            <div class="check">
+                                <i class="fa fa-check"></i>
+                            </div>
+                        </div> -->
+                        <div class="step">
+                            <p>Submit</p>
+                            <div class="bullet">
+                                <span>3</span>
+                            </div>
+                            <div class="check">
+                                <i class="fa fa-check"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <section id="addSection">
+                        <div class="container mb-5">
+                            <div class="mb-3">
+                                <span class="text-lowercase font-weight-bold"> </span>
+                            </div>
+                            <div> 
+                                <form [formGroup]="registerForm" (ngSubmit)="register(registerForm)">
+                                    <div class="row" id="area1" style="margin-top: 2%;">
+                                        <div class="col-md-12">
+                                            General Details
+                                            <hr>
+                                        </div>
+                                        <div class="col-lg-6 col-sm-6">
+                                            <div class="form-group">
+                                                Firstname <em *ngIf="registerForm.get('firstName').hasError('required')" style="color: red;"> *</em>
+                                                <input type="text" formControlName="firstName" class="form-control" placeholder="Firstname">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-sm-6">
+                                            <div class="form-group">
+                                                Lastname <em *ngIf="registerForm.get('lastName').hasError('required')" style="color: red;"> *</em>
+                                                <input type="text" formControlName="lastName" class="form-control" placeholder="Lastname">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-sm-6">
+                                            <div class="form-group">
+                                                Identification Type <em *ngIf="registerForm.get('idTypeName').hasError('required')" style="color: red;"> *</em>
+                                                <select class="form-control" formControlName="idTypeName">
+                                                    <option value="">choose...</option>
+                                                    <option value="National Id">National Id</option>
+                                                    <option value="Passport">Passport</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-sm-6">
+                                            <div class="form-group">
+                                                Identification Number <em *ngIf="registerForm.get('nationalId').hasError('required')" style="color: red;"> *</em>
+                                                <input type="text" class="form-control" formControlName="nationalId" placeholder="National Identification Number" id="myNatId">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-sm-6">
+                                            <div class="form-group">
+                                                Date of Birth <em *ngIf="registerForm.get('dateOfBirth').hasError('required')" style="color: red;"> *</em>
+                                                <input type="date" formControlName="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" max="{{today}}">
+                                            </div>
+                                        </div>                                        
+                                        <div class="col-lg-6 col-sm-6">
+                                            <div class="form-group">
+                                                Gender <em *ngIf="registerForm.get('gender').hasError('required')" style="color: red;"> *</em>
+                                                <select class="form-control" formControlName="gender">
+                                                    <option value="">choose...</option>
+                                                    <option value="Female">Female</option>
+                                                    <option value="Male">Male</option>
+                                                </select>
+                                            </div>
+                                        </div>  
+                                        <div class="col-md-12" style="margin-top: 2%;" align="center">
+                                            <button type="button" class="btn btn-sm btn-primary firstNext" id="next1" (click)="showArea(2, 1)">
+                                                Next&nbsp;&nbsp;<i class="ni ni-bold-right"></i>
+                                            </button>
+                                        </div>                                      
+                                    </div>
+                                    <div class="row" id="area2" style="margin-top: 2%;display: none;">
+                                        <div class="col-md-12">
+                                            Contact Details
+                                            <hr>
+                                        </div>
+                                        <div class="col-lg-6 col-sm-6">
+                                            <div class="form-group">
+                                                Phone Number
+                                                <div class="input-group">                                                    
+                                                    <select class="form-control col-md-4" (change)="onChangeRegion($event)">
+                                                        <option value="">country</option>
+                                                        <option *ngFor="let c of countryCodes;" [ngValue]="c.name">{{c.name}}</option>
+                                                    </select>
+                                                    <input type="text" style="padding-left: 2%;" value="{{prefix}}" class="form-control col-md-1" placeholder="+">
+                                                    <input type="text" id="phoneNumber" class="form-control col-md-7" placeholder="Phone Number">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-sm-6">
+                                            <div class="form-group">
+                                                Email <em *ngIf="registerForm.get('email').hasError('required')" style="color: red;"> *</em>
+                                                <input type="email" formControlName="email" (keyup)="checkEmail($event)" class="form-control" placeholder="Email">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-sm-6">
+                                            <div class="form-group">
+                                                Street <em *ngIf="registerForm.get('street').hasError('required')" style="color: red;"> *</em>
+                                                <input type="text" formControlName="street" class="form-control" placeholder="Street">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-sm-6">
+                                            <div class="form-group">
+                                                Suburb <em *ngIf="registerForm.get('suburb').hasError('required')" style="color: red;"> *</em>
+                                                <input type="text" formControlName="suburb" class="form-control" placeholder="Suburb">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-sm-6">
+                                            <div class="form-group">
+                                                City <em *ngIf="registerForm.get('city').hasError('required')" style="color: red;"> *</em>
+                                                <input type="text" class="form-control" formControlName="city" placeholder="City">
+                                            </div>
+                                        </div> 
+                                        <div class="col-lg-6 col-sm-6">
+                                            Country <em *ngIf="registerForm.get('country').hasError('required')" style="color: red;"> *</em>
+                                            <select class="form-control parent-dropdown" formControlName="country">
+                                                <option value="">choose...</option>
+                                                <option *ngFor="let c of countries" [ngValue]="c.countryCode">{{c.name}}</option>
+                                            </select>
+                                        </div> 
+                                        <div class="col-md-12" style="margin-top: 2%;" align="center">
+                                            <button type="button" class="btn btn-sm btn-info prev-2" (click)="showArea(1, 2)">
+                                                <i class="ni ni-bold-left"></i>&nbsp;&nbsp;Back
+                                            </button>
+                                            <!-- <button type="button" class="btn btn-sm btn-primary firstNext" (click)="showArea(3, 2)">
+                                                Next&nbsp;&nbsp;<i class="ni ni-bold-right"></i>
+                                            </button> -->
+                                            <button class="btn btn-sm btn-primary firstNext" type="submit">
+                                                <span *ngIf="loader"><i class="fa fa-spin fa-spinner"></i></span>&nbsp;&nbsp;
+                                                Submit&nbsp;&nbsp;<i class="ni ni-send"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="row" id="area3" style="margin-top: 2%;display: none;">
+                                        <div class="col-md-12">
+                                            Upload Images
+                                            <hr>
+                                        </div>
+                                        <div class="col-lg-6 col-sm-6">
+                                            <div class="progress" *ngIf="prog_photo">
+                                                <div class="progress-bar" role="progressbar" [style.width.%]="prog_photo" aria-valuemax="100"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                Photo of National Id
+                                                <input type="file" id="photo-file" class="form-control" (change)="uploadFile($event, 'photo')">
+                                                <input type="text" id="photo" style="display: none;" readonly formControlName="idPhotoPath" class="form-control" placeholder="Id Photo">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-sm-6">
+                                            <div class="progress" *ngIf="prog_selfie">
+                                                <div class="progress-bar" role="progressbar" [style.width.%]="prog_selfie" aria-valuemax="100"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                Photo of You Holding National Id
+                                                <input type="file" id="selfie-file" class="form-control" (change)="uploadFile($event, 'selfie')">
+                                                <input type="text" id="selfie" style="display: none;" readonly formControlName="photoWithIdPath" class="form-control" placeholder="Photo Wit Id">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12" style="margin-top: 2%;">
+                                            <!-- <div class="form-group" align="center">
+                                                <button type="button" class="btn btn-info btn-sm prev-2" (click)="showArea(2, 3)">
+                                                    <i class="ni ni-bold-left"></i>&nbsp;&nbsp;Back
+                                                </button>
+                                                <button class="btn btn-sm btn-primary firstNext" type="submit">
+                                                    <span *ngIf="loader"><i class="fa fa-spin fa-spinner"></i></span>&nbsp;&nbsp;
+                                                    Submit&nbsp;&nbsp;<i class="ni ni-send"></i>
+                                                </button>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                    <div id="area4" class="row" style="margin-top: 2%;display: none;">
+                                        <div class="card">
+                                            <div class="container mb-5">
+                                                <div class="mb-3">
+                                                    <span class="text-lowercase font-weight-bold">Success message</span>
+                                                </div>  
+                                                <br>                              
+                                                <div class="col-md-12" align="center">
+                                                    <div class="col-md-10">
+                                                        <div class="mb-3" align="left">
+                                                            <p>
+                                                                Your registration has been completed successfully.
+                                                                You will be notified about the status of your registration
+                                                                and the steps to follow in order to finish the registration process.
+                                                            </p>
+                                                            <hr width="80%" style="text-align: center;">
+                                                            
+                                                        </div>
+                                                        <br>
+                                                        <button type="button" routerLink="/" class="btn btn-primary">
+                                                            Ok <i class="ni ni-check-bold"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

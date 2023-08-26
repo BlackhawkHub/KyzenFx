@@ -1,0 +1,41 @@
+<!-- Navbar -->
+<app-navbar></app-navbar>
+
+<router-outlet></router-outlet>
+
+<!-- Footer -->
+<app-cfooter></app-cfooter>
+
+<div class="modal fade" id="timeoutWarning" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Session Expiring.</h5>
+            </div>
+            <div class="modal-body">
+                <div align="center">
+                    <div class="alert alert-warning col-md-6">
+                        You have been Idle.
+                    </div>
+                    <p>
+                        Your session is about to expire due to in-activity.<br>You will be redirected
+                        to login Page.
+                    </p>
+                </div>
+                <div class="text-center">
+                    <button type="button" (click)="resetWarning()" class="btn btn-outline-success btn-sm"
+                        data-dismiss="modal" aria-label="Close">
+                        Continue Session&nbsp;&nbsp;<i class="ni ni-bold-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" (click)="resetWarning()" class="btn btn-outline-primary btn-sm"
+                    data-dismiss="modal" aria-label="Close">
+                    <span>Close</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

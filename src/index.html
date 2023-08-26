@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <base href="/">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Kyzen Client</title>
+  <!-- Favicon -->
+  <link href="./assets/img/brand/favicon0.png" rel="icon" type="image/png">
+  <!-- Fonts -->
+  <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet"> -->
+  <!-- Icons -->
+  <!--<link href="./assets/vendor/nucleo/css/nucleo.css" rel="stylesheet">
+  <link href="./assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="./assets/carousel.css" rel="stylesheet">-->
+  <script>
+
+    var button_beg = '<span id="button" onclick="showhide()">', button_end = '</span>';
+    var show_button = '<i class="fa fa-bars" aria-hidden="true"></i>', hide_button = '<i class="fa fa-bars" aria-hidden="true"></i>';
+    function showhide() {
+        var div = document.getElementById( "hide_show" );
+        var showhide = document.getElementById( "showhide" );
+        if ( div.style.display !== "none" ) {
+            div.style.display = "none";
+            button = show_button;
+            showhide.innerHTML = button_beg + button + button_end;
+        } else {
+            div.style.display = "block";
+            button = hide_button;
+            showhide.innerHTML = button_beg + button + button_end;
+        }
+    }
+    function setup_button( status ) {
+        if ( status == '<i class="fa fa-bars" aria-hidden="true"></i>' ) {
+            button = hide_button;
+        } else {
+            button = show_button;
+        }
+        var showhide = document.getElementById( "showhide" );
+        showhide.innerHTML = button_beg + button + button_end;
+    }
+    window.onload = function () {
+        setup_button( 'hide' );
+        showhide(); // if setup_button is set to 'show' comment this line
+    }
+</script>
+
+</head>
+<body style="background-color:/* #f4f5f7;*/ #fff;" id="bb">
+  <app-root></app-root>
+</body>
+</html>

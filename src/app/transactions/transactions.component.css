@@ -1,0 +1,6 @@
+.infoBox {
+    border: 1px solid darkgray;
+    min-height: 400px;
+    padding: 2%;
+    overflow: auto;
+}

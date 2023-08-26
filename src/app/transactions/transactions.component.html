@@ -1,0 +1,159 @@
+<div class="py-5 bg-secondary">
+    <div class="container">
+        <div class="mb-3">
+            <span class="text-uppercase font-weight-bold">View Transactions</span>
+        </div>
+        <div class="tab-content">
+            <div class="card">
+                <div class="card-header" align="right">
+                    <div class="col-md-8" align="center">
+                        <form [formGroup]="searchForm">
+                            <div class="row text-black-50">
+                                <div class="col-md-8 row" align="">
+                                    <div class="col-md-6">
+                                        filter by
+                                        <select class="form-control form-control-sm" formControlName="type" id="searchType" (change)="enableSearch()">
+                                            <option value="" selected disabled>choose...</option>
+                                            <option value="all">All</option>
+                                            <option value="reference">Reference</option>
+                                            <option value="destinationCountryCode">Destination Country</option>
+                                            <option value="sourceCountryCode">Source Country</option>
+                                            <!-- <option value="status">Status</option> -->
+                                            <option value="reasonForTransfer">Reason</option>
+                                            <option value="amountSend">Amount</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        search value
+                                        <input type="text" (keydown.enter)="handleSearch()" formControlName="value" id="searchValue" class="form-control form-control-sm" placeholder="Search...." disabled>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 row" align="center">
+                                    
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <section id="viewSection" >
+                        <table class="table table-responsive-lg table-sm styled-table">
+                            <thead>
+                                <tr>
+                                    <th>Transaction Id</th>
+                                    <th>Date</th>
+                                    <th>Collection<br>Currency</th>
+                                    <th>Amount</th>
+                                    <th>Reason</th>
+                                    <th>Status</th>
+                                    <th>View</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let t of transactions | paginate: {itemsPerPage: 10,currentPage: currentPage}">
+                                    <td>{{ t.reference }}</td>
+                                    <td>{{ t.dateCreated }}</td>
+                                    <td>{{ t.collectionCurrencyCode }}</td>
+                                    <td>{{ t.amountSend | currency:t.currencyCodeSend:'code':'1.2-2' }}</td>
+                                    <td>{{ t.reasonForTransfer }}</td>
+                                    <td>{{ t.status }}</td>
+                                    <td>
+                                        <span style="cursor: pointer;" title="View Details." data-target="#info" data-toggle="modal" class="text-info"
+                                            (click)="loadDetails(t.id)">
+                                            info
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br><br>
+                        <div class="text-center">
+                            <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <div class="modal fade" id="info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content" style="max-height: 700px;overflow-y: auto;" *ngIf="transaction">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Transaction Details</h5>
+                            <button class="btn btn-sm btn-outline-danger" *ngIf="transaction.status == 'PENDING'" (click)="showRevoke(true)" style="margin-left: 20%;">
+                                Revoke Transaction
+                            </button>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="transactionArea">
+                                <div class="row col-md-12">
+                                    <div class="col-md-6">
+                                        <h5 class="text-black-50 text-center">Transaction</h5>
+                                        <div class="infoBox">
+                                            <table class="table">
+                                                <tr><th>Reference</th><td>{{transaction.reference}}</td></tr>
+                                                <tr><th>Date</th><td>{{transaction.dateTime | date: 'medium'}}</td></tr>
+                                                <tr><th>MTR</th><td>{{transaction.voucherNumber}}</td></tr>
+                                                <tr><th>Reason</th><td>{{transaction.reasonForTransfer}}</td></tr>
+                                                <tr><th>Destination Country</th><td>{{getCountryName(transaction.destinationCountryCode)}}</td></tr>
+                                                <tr><th>Source Country</th><td>{{getCountryName(transaction.sourceCountryCode)}}</td></tr>
+                                                <tr><th>Sending Currency</th><td>{{transaction.currencyCodeSend}}</td></tr>
+                                                <tr><th>Collection Currency</th><td>{{transaction.collectionCurrencyCode}}</td></tr>
+                                                <tr><th>Amount</th><td>{{transaction.amountSend | currency:transaction.currencyCodeSend:'symbol':'1.2-2'}}</td></tr>
+                                                <tr><th>Fee</th><td>{{transaction.fee | currency:transaction.currencyCodeSend:'symbol':'1.2-2'}}</td></tr>
+                                                <tr><th>Commission</th><td>{{transaction.commission | currency:transaction.currencyCodeSend:'symbol':'1.2-2'}}</td></tr>
+                                                <tr><th>Total Amount</th><td>{{transaction.totalAmountSend | currency:transaction.currencyCodeSend:'symbol':'1.2-2'}}</td></tr>
+                                                <tr><th>Teller Id</th><td>{{transaction.tellerId}}</td></tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h5 class="text-black-50 text-center">Receiver</h5>
+                                        <div class="infoBox">
+                                            <table *ngIf=" receipient" class="table">
+                                                <tr><th>First Name</th><td>{{receipient.firstName}}</td></tr>
+                                                <tr><th>Last Name</th><td>{{receipient.lastName}}</td></tr>
+                                                <tr><th>National Id</th><td>{{receipient.nationalId }}</td></tr>
+                                                <tr><th>Phone Number</th><td>{{receipient.phoneNumber}}</td></tr>
+                                                <tr><th>Gender</th><td>{{receipient.gender}}</td></tr>
+                                                <tr><th>Relationship</th><td>{{receipient.relationship}}</td></tr>                                                   
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="revokeArea" style="display: none;">
+                                <div class="container mb-5">
+                                    <div class="mb-3">
+                                        <span class="text-lowercase font-weight-bold">Revoke Transaction</span>
+                                    </div>
+                                    <form [formGroup]="cancelForm" (ngSubmit)="revokeTransaction(cancelForm)">
+                                        <div class="row">
+                                            <div class="col-lg-8 col-sm-6">
+                                                <div class="form-group">
+                                                    <input type="text" formControlName="reasonForCancellation" class="form-control" placeholder="Reason for Cancelling">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br><br>
+                                        <div class="row">
+                                            <button class="btn btn-sm btn-outline-warning" style="margin-left: 13%;" type="submit">
+                                                <span *ngIf="loader"><i class="fa fa-spin fa-spinner"></i></span>&nbsp;&nbsp;
+                                                Continue
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-default" (click)="showRevoke(false)" type="button">
+                                                Cancel
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

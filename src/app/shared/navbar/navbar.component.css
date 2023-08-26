@@ -1,0 +1,12 @@
+.nav-item {
+    cursor: pointer;
+}
+
+.nav-link.active {
+
+
+
+    border-bottom: 0px solid #65078f;
+    background-color: #65078f;
+    color: #fff;
+}

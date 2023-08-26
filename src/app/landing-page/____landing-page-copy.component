@@ -1,0 +1,454 @@
+<div>
+    
+
+<!--Tabs Begin-->    
+<div class="tabset">
+    <!-- Tab 1 -->
+    <input type="radio" name="tabset" id="tab1" aria-controls="marzen" checked>
+    <label for="tab1"><i class="fa fa-exchange"></i> Money Transfer</label>
+    <!-- Tab 2 -->
+    <input type="radio" name="tabset" id="tab2" aria-controls="rauchbier">
+    <label for="tab2" class="ex"><i class="fa fa-usd"></i> Exness</label>
+    <!-- Tab 3 -->
+    <input type="radio" name="tabset" id="tab3" aria-controls="dunkles">
+    <label for="tab3" class="on"><i class="fa fa-credit-card"></i> Pay for Services Online</label>
+    
+
+    <label for="none" style="float:right;">Call Us On : +27998948849</label>
+
+
+    <div class="tab-panels">
+      <section id="marzen" class="tab-panel">
+    <!--start slide 1-->
+    <img src="assets/img/qq.jpg" width="100%">
+    <!---end slide 1-->
+    </section>
+      <section id="rauchbier" class="tab-panel">
+      <!--start slide 2-->
+      <img src="assets/img/copy.jpg" width="100%">
+      <!---end slide 2--> 
+    </section>
+      <section id="dunkles" class="tab-panel">
+     <!--start slide 3-->
+     <img src="assets/img/s2.jpg" width="100%">
+     <!---end slide 3-->
+    
+    </section>
+    </div>
+    
+  </div>
+
+<!--Tabs End-->
+<!--start section-->
+<div class="row col-md-12" style="background:rgba(105,10,145,0.8); margin-left: 0px;">
+<!--start exness component-->
+    <div class="col-md-4">  
+ <div class="card-footer text-right" style="background-color:transparent; color:#fff; font-size:30px;">
+     <span style="font-weight:bold;">Welcome to Kyzen FX.</span>
+     <p>Today I want to </p>
+    </div>
+</div>
+<!--end component-->
+<!--start component-->
+<div class="col-md-3" style="padding-right:0px; padding-left:0px; max-width:20%;">  
+    <div class="card-footer text-center" style="background-color:transparent;">
+        <button class="btn btn-block btn-primary" href="https://one.exness-track.com/a/c_q2h4lh8x50">
+            Sign Up on Exness&nbsp;&nbsp;<i class="fa fa-user"></i>
+        </button>
+        <a class="btn btn-block btn-primary" target="_blank" href="https://one.exness-track.com/a/c_q2h4lh8x50">
+            Sign In on Exness &nbsp;&nbsp;<i class="fa fa-lock"></i>
+        </a>
+       </div>
+   </div>
+   <!--end component-->
+
+<!--start component-->
+<div class="col-md-3" style="padding-right:0px; padding-left:0px; max-width:20%;">  
+    <div class="card-footer text-center" style="background-color:transparent;">
+        <button class="btn btn-block btn-primary" href="#">
+            Buy DSTV&nbsp;&nbsp;<i class="fa fa-tv"></i>
+        </button>
+        <a class="btn btn-block btn-primary" target="_blank" href="{{chartUrl}}">
+           Chat With Us &nbsp;&nbsp;<i class="ni ni-chat-round"></i>
+        </a>
+       </div>
+   </div>
+   <!--end component-->
+
+<div class="col-md-3" style="padding-right:0px; padding-left:0px; max-width:20%;">
+    <div class="card-footer text-center" style="background-color:transparent;">
+        <button class="btn btn-block btn-primary" (click)="setVariable()" routerLink="/send-money">
+            Send Money&nbsp;&nbsp;<i class="ni ni-send"></i>
+        </button>
+        <a class="btn btn-block btn-primary" target="_blank" href="{{chartUrl}}">
+            Pay for a Service&nbsp;&nbsp;<i class="fa fa-credit-card"></i>
+        </a>
+    </div>
+    </div>
+
+
+</div>
+<!--end section -->
+    <div class="row col-md-12 p-100" style="background:#fff;">
+
+
+        <div class="col-md-8">
+            <div class="container shape-container d-flex align-items-center py-sm pt-100">
+                <div class="col px-0">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-lg-10 text-left pl-60">
+
+                        
+                            <span class="lead text-black-50">                   
+    <h1 class="hero-heading wp-block-heading" id="h-the-easiest-wayto-transfer-moneyaround-africa-and-asia" style="line-height:1.2em;">
+       <strong>
+         <span style="color:#FF5100" class="has-inline-color">
+           Kyzen Fx Money Transfer</span>
+       </strong>
+        <br>The easiest and most convenient way to <b>send</b> and <b>receive</b> money.
+    </h1>                     
+        </span>
+                            <div class="btn-wrapper mt-3" *ngIf="!authService.isLoggedIn">
+                                <a routerLink="/login"
+                                    class="btn btn-lg btn-info btn-icon mb-3 mb-sm-0">
+                                    <span class="btn-inner--icon"><i class="fa fa-user"></i></span>
+                                    <span class="btn-inner--text">Login</span>
+                                </a>
+                                <a routerLink="/register"
+                                    class="btn btn-lg btn-primary btn-icon mb-3 mb-sm-0">
+                                    <span class="btn-inner--icon"><i class="fa fa-user-plus"></i></span>
+                                    <span class="btn-inner--text">
+                                        <span>Register</span>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="btn-wrapper mt-3" *ngIf="authService.isLoggedIn">
+                                <a routerLink="/send-money"
+                                    class="btn btn-lg btn-info btn-icon mb-3 mb-sm-0">
+                                    <span class="btn-inner--text">Send Money</span>
+                                    <span class="btn-inner--icon"><i class="fa fa-send"></i></span>
+                                </a>
+                                <a routerLink="/receipients"
+                                    class="btn btn-lg btn-primary btn-icon mb-3 mb-sm-0">
+                                    <span class="btn-inner--icon"><i class="fa fa-user-plus"></i></span>
+                                    <span class="btn-inner--text">
+                                        <span>Recipients</span>
+                                    </span>
+                                </a>
+                            </div>
+
+                            <div class="mt-3 ml-100 text-left">
+                                <p>
+                                    <i class="text-success fa fa-check"></i> Wide Payout Network <br>
+                                    <i class="text-success fa fa-check"></i> Instant Cash Collection <br>
+                                    <i class="text-success fa fa-check"></i> 100% Safe &amp; Reliable
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" >
+            <div class="container shape-container d-flex align-items-center py-sm">
+                <div class="col px-0">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-lg-11">
+                            <div class="card" style="border-radius:15px;">
+                                <div class="card-header" style="background-color: none;">
+                               
+         <span style="color:#FF5100;font-family: inherit;font-weight: 900; font-size:20px;" classx="has-inline-color">
+                                        Get Started</span>
+                                </div>
+                                <!-- <div class="card-body">
+                                    <div>
+                                        <div class="mb-3">
+                                            <span class="text-lowercase text-black-50 font-weight-bold">sender</span>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-7">
+                                                <select name="senderCountry" (change)="selectedCountry('senderCountry', 'sender')" class="form-control parent-dropdown" id="senderCountry">
+                                                    <option value="" selected>Sending Country...</option>
+                                                    <option *ngFor="let c of countries;">{{ c.name }}</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <select name="senderCurrency" class="form-control parent-dropdown" id="senderCurreny">
+                                                    <option value="" selected>Currency</option>
+                                                    <option *ngFor="let c of sCurrency;">{{ c.currencyCode }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div>
+                                            sender pays
+                                            <input type="text" (keypress)="isNumberKey($event)" placeholder="Amount" (focus)="clearField('receiverAmount')" name="senderAmount" class="form-control font-weight-bold text-primary" id="senderAmount">
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div>
+                                        <div class="mb-3">
+                                            <span class="text-lowercase text-black-50 font-weight-bold">receiver</span>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-7">
+                                                <select name="receiverCountry" (change)="selectedCountry('receiverCountry', 'receiver')" class="form-control parent-dropdown" id="receiverCountry">
+                                                    <option value="" selected>Receiving Country...</option>
+                                                    <option *ngFor="let c of countries;">{{ c.name }}</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <select name="receiverCurrency" class="form-control parent-dropdown" id="receiverCurreny">
+                                                    <option value="" selected>Currency</option>
+                                                    <option *ngFor="let c of rCurrency;">{{ c.currencyCode }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div>
+                                            receiver gets
+                                            <input type="text" (keypress)="isNumberKey($event)" placeholder="Amount" (focus)="clearField('senderAmount')" name="receiverAmount" class="form-control font-weight-bold text-primary" id="receiverAmount">
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="mb-3">
+                                        <div>
+                                            <span class="text-lowercase text-black-50 font-weight-bold">Fee charge: </span>
+                                            <span class="text-warning font-weight-bolder" id="myFee">0</span>
+                                        </div>
+                                        <div hidden>
+                                            <span class="text-lowercase text-black-50 font-weight-bold">Exchange Rate: </span>
+                                            <span class="text-info font-weight-bolder" id="myExRate">0</span>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div>
+                                        <div class="text-center">
+                                            <button class="btn btn-sm btn-primary" (click)="determineCalc()">
+                                                <span *ngIf="loader"><i class="fa fa-spin fa-spinner"></i></span>&nbsp;&nbsp;
+                                                Calculate&nbsp;&nbsp;<i class="fa fa-calculator"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                
+                                <div class="card-body" style="background:#f2ab2c; border-radius:0px 0px 15px 15px;">
+                                    <div>
+                                        <div class="mb-2">
+                                            <span class="text-lowercasex text-black-50 font-weight-bold">Sender Pays *</span>
+                                        </div>
+                                        <div class="input-group">
+                                            <select name="senderCountry" (change)="selectedCountry('senderCountry', 'sender')" class="form-control parent-dropdown col-md-4" id="senderCountry">
+                                                <option value="" selected>Country</option>
+                                                <option *ngFor="let c of countries;">{{ c.name }}</option>
+                                            </select>
+
+                                            <select name="senderCurrency" class="form-control parent-dropdown col-md-4" id="senderCurreny">
+                                                <option value="" selected>Currency</option>
+                                                <option *ngFor="let c of sCurrency;">{{ c.currencyCode }}</option>
+                                            </select>
+                                            
+                                            <input type="text" (keypress)="isNumberKey($event)" placeholder="0.00" (focus)="clearField('receiverAmount')" name="senderAmount" class="form-control font-weight-bold text-primary text-center col-md-4" id="senderAmount">
+                                            
+                                        </div>
+                                    </div>
+                               
+                                    <div><br>
+                                        <div class="mb-2 mt-10">
+                                            <span class="text-lowercasex text-black-50 font-weight-bold">Receiver Gets</span>
+                                        </div>
+                                        <div class="input-group">
+                                            <select name="receiverCountry" (change)="selectedCountry('receiverCountry', 'receiver')" class="form-control parent-dropdown col-md-4" id="receiverCountry">
+                                                <option value="" selected>Country</option>
+                                                <option *ngFor="let c of countries;">{{ c.name }}</option>
+                                            </select> 
+
+                                            <select name="receiverCurrency" class="form-control parent-dropdown col-md-4" id="receiverCurreny">
+                                                <option value="" selected>Currency</option>
+                                                <option *ngFor="let c of rCurrency;">{{ c.currencyCode }}</option>
+                                            </select>
+
+                                            <input type="text" (keypress)="isNumberKey($event)" placeholder="0.00" (focus)="clearField('senderAmount')" name="receiverAmount" class="form-control col-md-4 text-center font-weight-bold text-primary" id="receiverAmount">
+
+                                        </div>
+                                    </div>
+                            
+                                    <div class="mb-3"><br>
+                                        <div>
+                                            <span class="text-lowercasex text-black-50 font-weight-bold">Fee Charge: </span>
+                                            <span class="text-warningx font-weight-bolder" id="myFee" style="color:#fff;">0</span>
+                                            <br>
+                                            <em class="text-mutedx small" style="color:#fff;">* Fees included in total amount to be sent.</em>
+                                        </div>
+                                        <div hidden>
+                                            <span class="text-lowercase text-black-50 font-weight-bold">Exchange Rate: </span>
+                                            <span class="text-info font-weight-bolder" id="myExRate">0</span>
+                                        </div>
+                                    </div>
+                           
+                                    <div>
+                                        <div class="text-center">
+                                            <button class="btn btn-lg btn-primary btn-icon mb-3 mb-sm-0" (click)="determineCalc()">
+                                                <span *ngIf="loader"><i class="fa fa-spin fa-spinner"></i></span>&nbsp;&nbsp;
+                                                Calculate&nbsp;&nbsp;<i class="fa fa-calculator"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<!--start section-->
+<div class="row col-md-12 pb-200" style="background-color: rgba(132,59,166,0.96); margin-left: 0px; background-image: url('assets/img/bg.png');">
+    <!--start exness component-->
+        <div class="col-md-12 pt-100 ">  
+     <div class="card-footer text-center" style="background-color:transparent; color:#fff; font-size:30px;">
+         <span style="font-weight:bold;">It’s Easy to Sign Up and Send Money</span>
+         <p>Start Sending Now </p>
+        </div>
+    </div>
+    <!--end component-->
+    <!--start component-->
+    <div class="col-md-2" style="padding-right:0px; padding-left:0px; max-width:20%;">  
+        <div class="card-footer text-center" style="background-color:transparent; color:#fff;">
+         
+        
+           </div>
+       </div>
+       <!--end component-->
+    
+    <!--start component-->
+    <div class="col-md-2" style="padding-right:0px; padding-left:0px; max-width:20%;">  
+        <div class="card-footer text-center" style="background-color:transparent; color:#fff;">
+            <i class="fa fa-user-plus" style="font-size:60px;"></i><br>
+            Register with K-Fx
+           </div>
+       </div>
+       <!--end component-->
+
+        <div class="col-md-2" style="padding-right:0px; padding-left:0px; max-width:20%;">
+            <div class="card-footer text-center" style="background-color:transparent; color:#fff;">
+                <i class="fa fa-user-plus" style="font-size:60px; color:#fca900;"></i><br>
+                Add Recipient
+            </div>
+            </div>
+    
+
+
+            <div class="col-md-2" style="padding-right:0px; padding-left:0px; max-width:20%;">
+                <div class="card-footer text-center" style="background-color:transparent; color:#fff;">
+                    <i class="fa fa-shopping-cart" style="font-size:60px;"></i><br>
+                    Place Order
+        
+                </div>
+                </div>
+
+                <div class="col-md-2" style="padding-right:0px; padding-left:0px; max-width:20%; color:#fff;">
+                    <div class="card-footer text-center" style="background-color:transparent;">
+                        <i class="fa fa-money" style="font-size:60px;"></i><br>
+                        Collect Cash
+            
+                    </div>
+                    </div>
+
+
+    </div>
+    <!--end section -->
+
+
+
+
+
+
+<!--start section-->
+<div class="row col-md-12 pb-200" style="background-color: #fff; margin-left: 0px;">
+    <!--start exness component-->
+        <div class="col-md-12 pt-100 ">  
+     <div class="card-footer text-center" style="background-color:transparent; color:#fff; border-top:none; border-bottom:none; font-size:30px;">
+       
+        <span style="color:#FF5100" class="has-inline-color">
+            Our Cash Collection Points</span>
+        </div>
+    </div>
+    <!--end component-->
+    <!--start component-->
+    <div class="col-md-2" style="padding-right:0px; padding-left:0px; max-width:20%;"> <div class="card-footerx text-center" style="background-color:transparent; color:#fff; border-top:none; border-bottom:none;">
+       
+            <img src="assets/img/ok.png">
+           </div>
+       </div>
+       <!--end component-->
+    
+    <!--start component-->
+    <div class="col-md-2" style="padding-right:0px; padding-left:0px; max-width:20%; ">  
+        <div class="card-footer text-center" style="background-color:transparent; color:#fff; border-top:none; border-bottom:none;">
+           <img src="assets/img/cbz.png">
+           </div>
+       </div>
+       <!--end component-->
+
+        <div class="col-md-2" style="padding-right:0px; padding-left:0px; max-width:20%;">
+            <div class="card-footer text-center" style="background-color:transparent; color:#fff; border-top:none; border-bottom:none;">
+                <img src="assets/img/cba.png">
+            </div>
+            </div>
+    
+
+
+            <div class="col-md-2" style="padding-right:0px; padding-left:0px; max-width:20%; ">
+                <div class="card-footer text-center" style="background-color:transparent; color:#fff;border-top:none; border-bottom:none;">
+                    <img src="assets/img/cabs.png">
+                </div>
+                </div>
+
+                <div class="col-md-2" style="padding-right:0px; padding-left:0px; max-width:20%; color:#fff;">
+                    <div class="card-footer text-center" style="background-color:transparent;border-top:none; border-bottom:none;">
+                        <img src="assets/img/eco-cash.png">
+            
+                    </div>
+                    </div>
+
+
+                    <div class="col-md-2" style="padding-right:0px; padding-left:0px; max-width:20%;">
+                        <div class="card-footer text-center" style="background-color:transparent; color:#fff; border-top:none; border-bottom:none;">
+                            <img src="assets/img/fmb.png">
+                        </div>
+                        </div>
+        
+                        <div class="col-md-2" style="padding-right:0px; padding-left:0px; max-width:20%; color:#fff; border-top:none; border-bottom:none;">
+                            <div class="card-footer text-center" style="background-color:transparent;">
+                                <img src="assets/img/inter-africa.png">
+                    
+                            </div>
+                            </div>
+
+
+
+                    <div class="col-md-2" style="padding-right:0px; padding-left:0px; max-width:20%;">
+                        <div class="card-footer text-center" style="background-color:transparent; color:#fff; border-top:none; border-bottom:none;">
+                            <img src="assets/img/design.png" width="100%">
+                        </div>
+                        </div>
+        
+                        <div class="col-md-2" style="padding-right:0px; padding-left:0px; max-width:20%; color:#fff;">
+                            <div class="card-footer text-center" style="background-color:transparent; border-top:none; border-bottom:none;">
+                                <img src="assets/img/zen.png" width="100%">
+                    
+                            </div>
+                            </div>
+
+
+
+
+    </div>
+    <!--end section -->

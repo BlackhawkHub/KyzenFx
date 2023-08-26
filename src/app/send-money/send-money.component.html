@@ -1,0 +1,355 @@
+<div class="py-5 bg-secondary">
+    <div class="container">
+        <div class="mb-3">
+            <span class="text-uppercase font-weight-bold">Send Money</span>
+        </div>
+        <div class="tab-content">
+            <div class="card">
+                <div class="card-header" id="progressContainer">
+                    <div class="custom-bar">
+                        <div class="step">
+                            <p>Beneficiary</p>
+                            <div class="bullet">
+                                <span>1</span>
+                            </div>
+                            <div class="check">
+                                <i class="fa fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <p>Payments</p>
+                            <div class="bullet">
+                                <span>2</span>
+                            </div>
+                            <div class="check">
+                                <i class="fa fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <p>Reason</p>
+                            <div class="bullet">
+                                <span>3</span>
+                            </div>
+                            <div class="check">
+                                <i class="fa fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <p>Pre-Auth</p>
+                            <div class="bullet">
+                                <span>4</span>
+                            </div>
+                            <div class="check">
+                                <i class="fa fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <p>Submit</p>
+                            <div class="bullet">
+                                <span>5</span>
+                            </div>
+                            <div class="check">
+                                <i class="fa fa-check"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div id="receipts">
+                        <div id="receiptChoose">
+                            <div class="card">
+                                <!-- /.card-header -->
+                                <div class="container mb-5">
+                                    <div class="mb-3">
+                                        <span class="text-lowercase font-weight-bold">Select beneficiary</span>
+                                    </div>
+                                    <br>
+                                    <div class="col-md-12" align="center">
+                                        <div class="col-md-12 receiptBox">
+                                            <div class="row receiptRow" *ngFor="let r of receipients;">
+                                                <div class="col-md-4">
+                                                    <strong>{{r.firstName}} {{r.lastName}}</strong>
+                                                    <p>
+                                                        <em>{{r.relationship}}</em>
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <em>{{r.nationalId}}</em>
+                                                    <p>
+                                                        <em>{{r.phoneNumber}}</em>
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <button class="btn btn-lg btn-primary" (click)="selectedReceipt(r.id, r.firstName + ' ' + r.lastName)" style="margin-top: 6%;">
+                                                        Send&nbsp;&nbsp;<i class="ni ni-send"></i>
+                                                    </button>
+                                                </div>
+                                                <hr width="100%" style="margin: 0;">
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <hr>
+                                        <button class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#addReceipt">
+                                            <i class="fas fa-plus"></i>&nbsp;&nbsp;Add Recipient
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                        </div>
+                    </div>
+                    <form [formGroup]="preAuthForm" (ngSubmit)="sendPreAuth(preAuthForm)">
+                        <div id="amounts" style="display: none;">
+                            <div class="card">
+                                <div class="container mb-5">
+                                    <div class="mb-3">
+                                        <span class="text-lowercase font-weight-bold">Payment details</span>
+                                    </div>
+                                    <br>
+                                    <div class="col-md-12" align="">
+                                        <p>
+                                            Sending to <span class="text-uppercase font-weight-bold">{{receiver}}</span>
+                                        </p>
+                                    </div>
+                                    <br>
+                                    <div class="col-md-12" align="center">
+                                        <div class="col-md-8 row">
+                                            <div class="col-md-12 text-left">
+                                                Sending Country <em *ngIf="preAuthForm.get('sourceCountryCode').hasError('required')" style="color: red;"> *</em>
+                                                <select formControlName="sourceCountryCode" (change)="selectedCountry()" class="form-control" id="senderCountry">
+                                                    <option value="" selected>Sending Country...</option>
+                                                    <option *ngFor="let c of countries;" [ngValue]="c.countryCode">{{ c.name }}</option>
+                                                </select>
+                                                <br>
+                                            </div>
+                                            <div class="col-md-12 text-left">
+                                                <div class="form-group">
+                                                    Sending Currency <em *ngIf="preAuthForm.get('currencyCodeSend').hasError('required')" style="color: red;"> *</em>
+                                                    <select formControlName="currencyCodeSend" class="form-control">
+                                                        <option value="">choose currency...</option>
+                                                        <option id="sendingCurrency" *ngFor="let c of clientCurrencies;" [ngValue]="c.currencyCode">{{c.currencyCode}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 row text-left">
+                                                <div class="form-group col-md-6">
+                                                    Amount Sent <em *ngIf="preAuthForm.get('amountSend').hasError('required')" style="color: red;"> *</em>
+                                                    <input type="text" (focus)="clearField('collectionAmount')" formControlName="amountSend" id="sendingAmount" class="form-control" placeholder="Send Amount">
+                                                </div>
+
+                                                <div class="form-group col-md-6">
+                                                    Amount Paid 
+                                                    <input type="text" id="paidAmount" class="form-control" placeholder="Paid Amount" readonly>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="col-md-12 text-left">
+                                                Destination Country <em *ngIf="preAuthForm.get('destinationCountryCode').hasError('required')" style="color: red;"> *</em>
+                                                <select formControlName="destinationCountryCode" class="form-control" id="destinationCountry">
+                                                    <option value="" selected>Sending Country...</option>
+                                                    <option *ngFor="let c of countries;" [ngValue]="c.countryCode">{{ c.name }}</option>
+                                                </select>
+                                                <br>
+                                            </div> -->
+                                            <div class="col-md-12 text-left">
+                                                <div class="form-group">
+                                                    Collection Currency <em *ngIf="preAuthForm.get('collectionCurrencyCode').hasError('required')" style="color: red;"> *</em>
+                                                    <select formControlName="collectionCurrencyCode" class="form-control">
+                                                        <option value="">choose currency...</option>
+                                                        <option id="collectingCurrency" *ngFor="let c of currencies;" [ngValue]="c.currencyCode">{{c.currencyCode}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 text-left" style="display: flex;">
+                                                <div class="col-md-4" style="margin-top: 2%;">
+                                                    <br>
+                                                    <button type="button" (click)="determineCalc()" class="btn btn-sm btn-info">
+                                                        <span *ngIf="calcLoader"><i class="fa fa-spin fa-spinner"></i></span>&nbsp;&nbsp;
+                                                        Calculate
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="form-group">
+                                                        Amount Collection <em *ngIf="preAuthForm.get('collectionAmount').hasError('required')" style="color: red;"> *</em>
+                                                        <input type="text" (focus)="clearField('sendingAmount')" formControlName="collectionAmount" id="collectionAmount" class="form-control" placeholder="Collection Amount">
+                                                    </div>
+                                                </div>
+                                                <br>
+                                            </div>
+                                            <div class="col-md-12 text-center">
+                                                <div>
+                                                    <br>
+                                                    <span class="text-lowercase text-black-50 font-weight-bold">Fee charge: </span>
+                                                    <span class="text-warning font-weight-bolder" id="myFee">0</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br><br>
+                                    <div class="col-md-12" align="center">
+                                        <button type="button" class="btn btn-sm btn-info" (click)="showRecipients()">
+                                            <i class="ni ni-bold-left"></i>&nbsp;&nbsp;Back
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-primary" (click)="confirmDetails()">
+                                            Next&nbsp;&nbsp;<i class="ni ni-bold-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="confirm" style="display: none;">
+                            <div class="card">
+                                <div class="container mb-5">
+                                    <div class="mb-3">
+                                        <span class="text-lowercase font-weight-bold">transfer reason</span>
+                                    </div>
+                                    <br>
+                                    <div>
+                                        <div class="col-md-12" align="center">
+                                            <div hidden>
+                                                <div class="col-lg-6 col-sm-6">
+                                                    <div class="form-group">
+                                                        <input class="myField form-control" type="text" formControlName="sourceCountryCode">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-sm-6">
+                                                    <div class="form-group">
+                                                        <input class="myField form-control" type="text" formControlName="destinationCountryCode">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-sm-6">
+                                                    <div class="form-group">
+                                                        <input class="myField form-control" type="text" formControlName="recipientId">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <br>
+                                                <div class="col-lg-12 col-sm-6">
+                                                    Enter Reason
+                                                    <div class="form-group">
+                                                        <input class="myField form-control" type="text" formControlName="reasonForTransfer">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="col-md-12" align="center">
+                                            <button type="button" class="btn btn-sm btn-info" (click)="showAmounts()">
+                                                <i class="ni ni-bold-left"></i>&nbsp;&nbsp;Back
+                                            </button>
+                                            <button type="submit" class="btn btn-sm btn-primary">
+                                                <span *ngIf="loader"><i class="fa fa-spin fa-spinner"></i></span>&nbsp;&nbsp;
+                                                Submit <i class="ni ni-send"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="finish" style="display: none;">
+                        <div class="card">
+                            <div class="container mb-5">
+                                <div class="mb-3">
+                                    <span class="text-lowercase font-weight-bold">Transaction Details</span>
+                                </div>
+                                <br>
+                                <div class="col-md-12" align="center">
+                                    <div class="col-md-6">
+                                        <div class="mb-3" align="left">
+                                            <table class="table table-borderless">
+                                               <tr>
+                                                    <td>Receiver :</td> <td><b>{{receiver}}</b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Amount to be Collected :</td> <td><b>{{receiverAmount}}</b></td>
+                                                </tr>
+                                            </table>
+                                            <hr width="80%" style="text-align: center;">
+                                            <table class="table table-borderless">
+                                                <tr style="display: none;">
+                                                    <td>Amount Sent:</td><td><b id="resAmount"></b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Fees :</td><td><b id="resFees"></b></td>
+                                                </tr>
+                                            </table>
+                                            <hr width="80%" style="text-align: center;">
+                                            <table class="table table-borderless">
+                                                <tr>
+                                                    <td>Total<br>Amount to be Paid:</td> <td><b id="resTotal" class="text-primary"></b></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <br>
+                                        <button type="button" class="btn btn-sm btn-info" (click)="cancelTrans()">
+                                            <i class="ni ni-bold-left"></i>&nbsp;&nbsp;Back
+                                        </button>
+                                        <button type="button" (click)="makeTransaction()" class="btn btn-sm btn-primary">
+                                            <span *ngIf="loader2"><i class="fa fa-spin fa-spinner"></i></span>&nbsp;&nbsp;
+                                            Submit <i class="ni ni-send"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="message" style="display: none;">
+                        <div class="card">
+                            <div class="container mb-5">
+                                <div class="mb-3">
+                                    <span class="text-lowercase font-weight-bold">Success message</span>
+                                </div>  
+                                <br>                              
+                                <div class="col-md-12" align="center">
+                                    <div class="col-md-10">
+                                        <div class="mb-3" align="left">
+                                            <p >
+                                                Transaction Id: <b>{{reference}}</b>
+                                            </p>
+                                            <hr width="80%" style="text-align: center;">
+                                            <p>
+                                                Your transaction has been made.
+                                                To complete the transaction, visit any <strong>Kyzen</strong> agent with your 
+                                                <b>transaction reference</b> and the <b>total amount</b> to be paid.
+                                            </p>
+                                            <hr width="80%" style="text-align: center;">
+                                            <p>
+                                                Total Amount: <b id="resTotal2" class="text-primary"></b>&nbsp;&nbsp;
+                                                <!-- + Fee: <b id="resFee2" class="text-info"></b> -->
+                                            </p>
+                                        </div>
+                                        <br>
+                                        <button type="button" routerLink="/" class="btn btn-primary">
+                                            Ok <i class="ni ni-check-bold"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addReceipt" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Receipients</h5>
+                    
+                </div>
+                <div class="modal-body">
+                    <app-receipients></app-receipients>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary btn-sm" (click)="getReceipients()" data-dismiss="modal" aria-label="Close">
+                        <span>Close</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

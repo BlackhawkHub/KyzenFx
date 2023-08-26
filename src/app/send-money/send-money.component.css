@@ -1,0 +1,123 @@
+.receiptBox {
+  border: 1px solid lightgray;
+  /* border-radius: 7px; */
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.receiptRow:hover {
+  background-color: whitesmoke;
+}
+
+@media only screen and (max-width: 640px){
+  #progressContainer {
+    padding-left: 0%;
+  }
+
+  .container .custom-bar {
+    display: flex;
+    user-select: none;
+    width: 110%;
+  }
+}
+
+@media only screen and (min-width : 1025px){
+  #progressContainer {
+    padding-left: 55%;
+  }
+
+  .container .custom-bar {
+    display: flex;
+    user-select: none;
+    width: 100%;
+  }
+}
+
+.container .custom-bar .step {
+  text-align: center;
+  width: 100%;
+  position: relative;
+}
+
+.container .custom-bar .step p {
+  font-weight: 500;
+  font-size: 12px;
+  /* color: #000; */
+  margin-bottom: 8px;
+}
+
+.custom-bar .step .bullet {
+  height: 30px;
+  width: 30px;
+  border: 2px solid gray;
+  display: inline-block;
+  border-radius: 50%;
+  position: relative;
+  transition: 0.2s;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 25px;
+}
+
+.custom-bar .step .bullet.active {
+  border-color: #3768e4;
+  background: #3768e4;
+}
+
+.custom-bar .step .bullet span {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.custom-bar .step .bullet.active span {
+  display: none;
+}
+
+.custom-bar .step .bullet:before,
+.custom-bar .step .bullet:after {
+  position: absolute;
+  content: '';
+  bottom: 11px;
+  right: -51px;
+  height: 3px;
+  width: 44px;
+  background: grey;
+}
+
+.custom-bar .step .bullet.active:after {
+  background: #3768e4;
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: animate 0.3s linear forwards;
+}
+
+@keyframes animate {
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+.custom-bar .step:last-child .bullet:before,
+.custom-bar .step:last-child .bullet:after {
+  display: none;
+}
+
+.custom-bar .step p.active {
+  color: #3768e4;
+  transition: 0.2s linear;
+}
+
+.custom-bar .step .check {
+  position: absolute;
+  left: 50%;
+  top: 70%;
+  font-size: 15px;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+
+.custom-bar .step .check.active {
+  display: block;
+  color: #fff;
+}

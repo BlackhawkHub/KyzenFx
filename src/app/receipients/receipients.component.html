@@ -1,0 +1,250 @@
+<div class="py-5 bg-secondary">
+    <div class="container">
+        <div class="mb-3">
+            <span class="text-uppercase font-weight-bold">Manage Receipients</span>
+        </div>
+        <div class="tab-content">
+            <div class="card">
+                <div class="card-header" align="right">
+                    <button class="btn btn-sm btn-primary" (click)="switch('add')">
+                        <i class="ni ni-fat-add"></i>&nbsp;&nbsp;Add New
+                    </button>
+                </div>
+                <div class="card-body">
+                    <section id="viewSection">
+                        <table class="table table-sm table-responsive-sm styled-table">
+                            <thead>
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Phone</th>
+                                    <th>Gender</th>
+                                    <th>Relation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let r of receipients;">
+                                    <td>{{r.firstName}}</td>
+                                    <td>{{r.lastName}}</td>
+                                    <td>
+                                        <div style="display: flex;">
+                                            <span class="col-sm-10">{{r.phoneNumber}}</span>
+                                            <span class="text-primary col-sm-2" style="cursor: pointer;" (click)="loadRecipient(r.id, 'editNumber')">
+                                                <i class="fa fa-edit"></i>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td>{{r.gender}}</td>
+                                    <td>
+                                        <div style="display: flex;">
+                                            <span class="col-sm-10">{{r.relationship}}</span>
+                                            <span class="text-primary col-sm-2" style="cursor: pointer;" (click)="loadRecipient(r.id, 'editRelation')">
+                                                <i class="fa fa-edit"></i>
+                                            </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                    <section id="addSection" style="display: none;">
+                        <div class="container mb-5">
+                            <div class="mb-3">
+                                <span class="text-lowercase font-weight-bold">Add new receipient</span>
+                            </div>
+                            <form [formGroup]="addForm" (ngSubmit)="addReceipient(addForm)">
+                                <div class="row">
+                                    <div class="col-lg-6 col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" formControlName="firstName" class="form-control"
+                                                placeholder="Firstname">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" formControlName="lastName" class="form-control"
+                                                placeholder="Lastname">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-sm-6">
+                                        <div class="form-group">
+                                            <select class="form-control" formControlName="gender">
+                                                <option value="">gender...</option>
+                                                <option value="Female">Female</option>
+                                                <option value="Male">Male</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" formControlName="nationalId"
+                                                placeholder="National Id">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" formControlName="relationship" class="form-control"
+                                                placeholder="Relationship">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-sm-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <select class="form-control col-md-4" (change)="onChangeRegion($event)">
+                                                    <option value="">country</option>
+                                                    <option *ngFor="let c of countryCodes;" [ngValue]="c.name">
+                                                        {{c.name}}</option>
+                                                </select>
+                                                <input type="text" style="padding-left: 2%;" value="{{prefix}}"
+                                                    class="form-control col-md-1" placeholder="+">
+                                                <input type="text" id="phoneNumber" class="form-control"
+                                                    placeholder="Phone Number">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" formControlName="address" class="form-control"
+                                                placeholder="Address">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-sm-6">
+                                        <select class="form-control" formControlName="countryId">
+                                            <option value="">country...</option>
+                                            <option *ngFor="let c of countries;" [ngValue]="c.id">{{c.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <br><br>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <button class="btn btn-sm btn-outline-primary" style="margin-left: 13%;"
+                                            type="submit">
+                                            <span *ngIf="loader"><i
+                                                    class="fa fa-spin fa-spinner"></i></span>&nbsp;&nbsp;
+                                            Add Receipient
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="editNumber" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Update Recipient Number</h5>
+
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="editForm" (ngSubmit)="updateNumber(editForm)">
+                            <div *ngIf="receipient">
+                                <table class="table">
+                                    <tr>
+                                        <th>Name:</th><td>{{receipient.lastName}} {{receipient.firstName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>National Id:</th><td>{{receipient.nationalId}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Gender:</th><td>{{receipient.gender}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Address:</th><td>{{receipient.address}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Relationship:</th><td>{{receipient.relationship}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        Phone Number
+                                        <input type="text" formControlName="phoneNumber" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" align="center">
+                                <button type="submit" class="btn btn-sm btn-primary">
+                                    <span *ngIf="nloader"><i
+                                        class="fa fa-spin fa-spinner"></i></span>&nbsp;&nbsp;Update
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-primary btn-sm"
+                            data-dismiss="modal" aria-label="Close">
+                            <span>Close</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="editRelation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Update Recipient Relation</h5>
+
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="editForm" (ngSubmit)="updateRelation(editForm)">
+                            <div *ngIf="receipient">
+                                <table class="table">
+                                    <tr>
+                                        <th>Name:</th><td>{{receipient.lastName}} {{receipient.firstName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>National Id:</th><td>{{receipient.nationalId}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Gender:</th><td>{{receipient.gender}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Address:</th><td>{{receipient.address}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Phone Number:</th><td>{{receipient.phoneNumber}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        Relationship
+                                        <input type="text" formControlName="relationship" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" align="center">
+                                <button type="submit" class="btn btn-sm btn-primary">
+                                    <span *ngIf="rloader"><i
+                                        class="fa fa-spin fa-spinner"></i></span>&nbsp;&nbsp;Update
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-primary btn-sm"
+                            data-dismiss="modal" aria-label="Close">
+                            <span>Close</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

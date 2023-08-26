@@ -1,0 +1,14 @@
+version: "3.3"
+services:
+
+  remit-frontend-client:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      platform: linux/amd64
+      image: cap10/myrepository:kyzen-remit-frontend-client
+      container_name: remit-frontend-client
+      ports:
+        - 4400:80
+     
+      
